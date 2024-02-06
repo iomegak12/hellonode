@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("iomega/hellonode")
+        app = docker.build('iomega/hellonode')
     }
 
     stage('Test image') {
@@ -30,7 +30,13 @@ node {
          * Pushing multiple tags is cheap, as all the layers are reused. */
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
             app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
+            app.push('latest')
+        }
+    }
+
+    stage ('Deploy Morpheus App') {
+        steps {
+            sh 'sudo morpheus apps add ciapp04 --payload mobuild.json --refresh 15'
         }
     }
 }
