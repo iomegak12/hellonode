@@ -36,7 +36,7 @@ node {
 
     stage ('Deploy Morpheus App') {
         steps {
-            sh 'sudo morpheus apps add ciapp04 --payload mobuild.json --refresh 15'
+            sh 'sudo morpheus apps add ciapp04 --payload mobuild.json'
         }
     }
 }
